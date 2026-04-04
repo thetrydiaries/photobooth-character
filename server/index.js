@@ -7,9 +7,29 @@ const path    = require('path')
 const app  = express()
 const PORT = process.env.PORT || 3001
 
+const ASSETS_DIR = path.join(__dirname, '..', 'assets')
+
 // ── Middleware ──────────────────────────────────────────────────────────────
 app.use(cors({ origin: 'http://localhost:5173' }))
 app.use(express.json())
+
+// ── Asset serving — search subdirectories for the requested filename ────────
+app.get('/assets/:filename', (req, res) => {
+  const filename = req.params.filename
+  if (filename.includes('/') || filename.includes('..')) {
+    return res.status(400).send('Invalid filename')
+  }
+  const subdirs = fs.readdirSync(ASSETS_DIR, { withFileTypes: true })
+    .filter(d => d.isDirectory())
+    .map(d => d.name)
+  for (const subdir of subdirs) {
+    const filepath = path.join(ASSETS_DIR, subdir, filename)
+    if (fs.existsSync(filepath)) {
+      return res.sendFile(filepath)
+    }
+  }
+  res.status(404).send('Asset not found')
+})
 
 // ── Routes ──────────────────────────────────────────────────────────────────
 app.use('/analyse', require('./routes/analyse'))
@@ -33,6 +53,8 @@ app.get('/variants', (_req, res) => {
       if (Array.isArray(rule.asset)) rule.asset.forEach(a => seen.add(a))
       else if (rule.asset) seen.add(rule.asset)
     }
+    // extras: panel-only variants, never auto-selected by rules
+    if (config.extras) config.extras.forEach(a => seen.add(a))
     variants[category] = [...seen].filter(Boolean)
   }
   res.json(variants)

@@ -1,6 +1,13 @@
 import { useState } from 'react'
 import styles from './AssetPanel.module.css'
 
+// ── Colour pickers ────────────────────────────────────────────────────────
+const COLOUR_PICKERS = [
+  { key: 'hair',   label: 'Hair colour' },
+  { key: 'skin',   label: 'Skin tone'   },
+  { key: 'outfit', label: 'Outfit colour' },
+]
+
 // ── Human-readable category labels ───────────────────────────────────────
 const CATEGORY_LABELS = {
   frame:      'Frame',
@@ -43,13 +50,17 @@ function shortLabel(name) {
 export default function AssetPanel({ recipe, flags, variants, onRecipeChange }) {
   const [expandedCategory, setExpandedCategory] = useState(null)
 
+  function setColour(key, value) {
+    onRecipeChange({ ...recipe, colours: { ...recipe.colours, [key]: value } })
+  }
+
   function swapAsset(category, newAsset) {
     const next = {
       ...recipe,
       assets: { ...recipe.assets, [category]: newAsset },
     }
     onRecipeChange(next)
-    setExpandedCategory(null)
+    // keep the category open — user closes by clicking another category or the same header
   }
 
   const categories = PANEL_ORDER.filter(c => recipe.assets[c] !== undefined)
@@ -121,6 +132,31 @@ export default function AssetPanel({ recipe, flags, variants, onRecipeChange }) 
             </div>
           )
         })}
+      </div>
+
+      {/* ── Colour pickers ── */}
+      <div className={styles.colourSection}>
+        <p className={styles.colourHeading}>Colours</p>
+        <div className={styles.colourList}>
+          {COLOUR_PICKERS.map(({ key, label }) => (
+            <div key={key} className={styles.colourRow}>
+              <label className={styles.colourLabel}>{label}</label>
+              <div className={styles.colourRight}>
+                <div
+                  className={styles.colourSwatch}
+                  style={{ background: recipe.colours?.[key] ?? '#888888' }}
+                />
+                <input
+                  type="color"
+                  value={recipe.colours?.[key] ?? '#888888'}
+                  onChange={e => setColour(key, e.target.value)}
+                  className={styles.colourInput}
+                  title={`Pick ${label}`}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )

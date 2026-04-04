@@ -202,3 +202,60 @@
   padding: 2px;
   line-height: 1.2;
 }
+
+/* ── Colour pickers ─────────────────────────────────────────────────────── */
+.colourSection {
+  border-top: 2px solid var(--border);
+  padding: 16px 20px 20px;
+}
+
+.colourHeading {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  margin: 0 0 12px 0;
+}
+
+.colourList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.colourRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.colourLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.colourRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.colourSwatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.colourInput {
+  width: 36px;
+  height: 28px;
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+}

@@ -8,19 +8,19 @@ const H = 880
 // ── Layer render order (bottom → top) ────────────────────────────────────
 // tint: null | 'skin' | 'hair' | 'outfit'
 const LAYER_ORDER = [
-  { category: 'frame',      tint: null     },
-  { category: 'body',       tint: null     },
-  { category: 'outfit',     tint: 'outfit' },
-  { category: 'face',       tint: 'skin'   },
-  { category: 'facialhair', tint: 'hair'   },
-  { category: 'nose',       tint: 'skin'   },
-  { category: 'mouth',      tint: null     },
-  { category: 'brows',      tint: 'hair'   },
-  { category: 'eyes',       tint: null     },
-  { category: 'hair_back',  tint: 'hair'   },
-  { category: 'hair_front', tint: 'hair'   },
-  { category: 'accessory',  tint: null     },
-  { category: 'twinkle',    tint: null     },
+  { category: 'frame',      tint: null     }, // z=0  card frame
+  { category: 'hair_back',  tint: 'hair'   }, // z=1  hair bulk/length behind head
+  { category: 'body',       tint: 'skin'   }, // z=2  body silhouette
+  { category: 'face',       tint: 'skin'   }, // z=3  face shape
+  { category: 'outfit',     tint: 'outfit' }, // z=4  clothing
+  { category: 'facialhair', tint: 'hair'   }, // z=5  beard/stubble
+  { category: 'nose',       tint: 'skin'   }, // z=6  nose
+  { category: 'mouth',      tint: null     }, // z=7  mouth
+  { category: 'eyes',       tint: null     }, // z=8  eyes (real colour assets)
+  { category: 'twinkle',    tint: null     }, // z=9  eye shine
+  { category: 'brows',      tint: 'hair'   }, // z=10 eyebrows
+  { category: 'accessory',  tint: null     }, // z=11 glasses, earrings, etc.
+  { category: 'hair_front', tint: 'hair'   }, // z=12 fringe/bangs
 ]
 
 // ── Tint a loaded HTMLImageElement → offscreen canvas ─────────────────────

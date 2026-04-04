@@ -18,18 +18,18 @@ Look carefully at the person and return ONLY a valid JSON object with these exac
 {
   "gender": "female" | "male" | "other",
   "hairLength": "short" | "medium" | "long",
-  "hairStyle": "straight" | "wavy" | "curly" | "bun" | "bob" | "slick",
+  "hairStyle": "straight" | "wavy" | "curly" | "bun" | "ponytail" | "bob" | "slick",
   "hairFrontStyle": "none" | "fringe" | "curtains" | "side_part" | "slick" | "messy" | "long",
   "faceShape": "oval" | "round" | "square" | "diamond",
   "eyeShape": "almond" | "round" | "monolid" | "hooded",
   "eyeColour": "black" | "brown" | "blue" | "green",
   "browShape": "natural" | "arched" | "straight" | "bushy" | "barely-there",
   "noseShape": "button" | "straight" | "wide" | "curved" | "upturned",
-  "mouthShape": "full" | "thin" | "wide" | "neutral",
+  "mouthShape": "full" | "thin" | "wide" | "neutral" | "teeth" ,
   "hasFacialHair": true | false,
   "facialHairStyle": "none" | "stubble" | "moustache" | "short beard" | "full beard" | "goatee",
   "hasGlasses": true | false,
-  "outfitStyle": "shirt" | "buttonup" | "turtleneck" | "shirtpocket" | "none",
+  "outfitStyle": "shirt" | "buttonup" | "turtleneck" | "shirtpocket" | "offshoulder" | "oriental" | "none",
   "skinTone": "<hex colour string that best matches their skin, e.g. #C08060>",
   "hairColour": "<hex colour string that best matches their hair, e.g. #3D1F0A>",
   "outfitColour": "<hex colour string that best matches their visible clothing, e.g. #2D3561>"
@@ -99,31 +99,40 @@ router.post('/', upload.single('photo'), async (req, res) => {
 
       console.log('[analyse] calling Claude Vision...')
 
-      const apiResponse = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'x-api-key':         process.env.ANTHROPIC_API_KEY,
-          'anthropic-version': '2023-06-01',
-          'content-type':      'application/json',
-        },
-        body: JSON.stringify({
-          model:      'claude-sonnet-4-6',
-          max_tokens: 1024,
-          system:     SYSTEM_PROMPT,
-          messages: [
-            {
-              role: 'user',
-              content: [
-                {
-                  type:   'image',
-                  source: { type: 'base64', media_type: 'image/jpeg', data: base64 },
-                },
-                { type: 'text', text: 'Analyse this wedding guest photo.' },
-              ],
-            },
-          ],
-        }),
-      })
+      const controller = new AbortController()
+      const timeout = setTimeout(() => controller.abort(), 30000)
+
+      let apiResponse
+      try {
+        apiResponse = await fetch('https://api.anthropic.com/v1/messages', {
+          signal: controller.signal,
+          method: 'POST',
+          headers: {
+            'x-api-key':         process.env.ANTHROPIC_API_KEY,
+            'anthropic-version': '2023-06-01',
+            'content-type':      'application/json',
+          },
+          body: JSON.stringify({
+            model:      'claude-sonnet-4-6',
+            max_tokens: 1024,
+            system:     SYSTEM_PROMPT,
+            messages: [
+              {
+                role: 'user',
+                content: [
+                  {
+                    type:   'image',
+                    source: { type: 'base64', media_type: 'image/jpeg', data: base64 },
+                  },
+                  { type: 'text', text: 'Analyse this wedding guest photo.' },
+                ],
+              },
+            ],
+          }),
+        })
+      } finally {
+        clearTimeout(timeout)
+      }
 
       if (!apiResponse.ok) {
         const errText = await apiResponse.text()

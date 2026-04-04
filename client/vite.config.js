@@ -7,6 +7,7 @@ export default defineConfig({
     proxy: {
       '/analyse': 'http://localhost:3001',
       '/variants': 'http://localhost:3001',
+      '/assets':  'http://localhost:3001',
     },
   },
 })
