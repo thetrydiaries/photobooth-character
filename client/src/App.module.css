@@ -1,0 +1,214 @@
+/* ── App shell ──────────────────────────────────────────────────────────── */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  background: var(--bg);
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+
+.restart {
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  transition: all 0.15s ease;
+}
+.restart:hover {
+  background: var(--bg);
+  color: var(--text);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Main ────────────────────────────────────────────────────────────────── */
+.main {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Screen transitions ─────────────────────────────────────────────────── */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 60px 40px;
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.screen[data-active='true'] {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  position: relative;
+}
+
+/* ── Capture screen ─────────────────────────────────────────────────────── */
+.captureLayout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.captureHero {
+  text-align: center;
+}
+
+.headline {
+  font-size: 56px;
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  margin-bottom: 16px;
+}
+
+.subline {
+  font-size: 18px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.errorBanner {
+  margin-top: 20px;
+  background: #FFF0ED;
+  color: var(--accent-dark);
+  border: 1px solid #FECDBB;
+  border-radius: var(--radius-sm);
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ── Analysing screen ───────────────────────────────────────────────────── */
+.analysingLayout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  min-height: 60vh;
+}
+
+.pulseCard {
+  width: 180px;
+  height: 252px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #FFF0ED 0%, #FFE8D6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.pulseCard::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(255, 92, 58, 0.3) 60deg,
+    transparent 120deg
+  );
+  animation: spin 2s linear infinite;
+}
+
+.pulseCard::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  background: linear-gradient(135deg, #FFF8F6 0%, #FFF0ED 100%);
+  border-radius: calc(var(--radius-lg) - 3px);
+}
+
+.pulseInner {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.15;
+  animation: breathe 1.4s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(0.8); opacity: 0.15; }
+  50%       { transform: scale(1.2); opacity: 0.3;  }
+}
+
+.analysingLabel {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.2px;
+}
+
+/* ── Compositor screen ──────────────────────────────────────────────────── */
+.compositorLayout {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.canvasArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  flex-shrink: 0;
+}
+
+.cardShadow {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow:
+    0 2px 8px rgba(0,0,0,0.08),
+    0 16px 40px rgba(0,0,0,0.12),
+    0 0 0 1px rgba(0,0,0,0.04);
+}
+
+.panelArea {
+  flex: 1;
+  min-width: 0;
+  padding-top: 4px;
+}

@@ -1,0 +1,204 @@
+/* ── Panel shell ────────────────────────────────────────────────────────── */
+.panel {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.panelTitle {
+  font-size: 22px;
+  padding: 24px 24px 4px;
+}
+
+.panelSub {
+  font-size: 13px;
+  color: var(--text-muted);
+  padding: 0 24px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Category list ──────────────────────────────────────────────────────── */
+.categoryList {
+  overflow-y: auto;
+  max-height: calc(100svh - 240px);
+}
+
+/* ── Category row ───────────────────────────────────────────────────────── */
+.categoryRow {
+  border-bottom: 1px solid var(--border);
+}
+.categoryRow:last-child { border-bottom: none; }
+
+.flagged > .rowHeader {
+  background: var(--yellow-pale);
+}
+
+/* ── Row header ─────────────────────────────────────────────────────────── */
+.rowHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: transparent;
+  text-align: left;
+  transition: background 0.12s ease;
+  gap: 12px;
+}
+.rowHeader:hover { background: var(--bg); }
+
+.rowLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.flagDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--yellow);
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px rgba(255, 209, 102, 0.3);
+}
+
+.categoryLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.rowRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.currentValue {
+  font-size: 12px;
+  color: var(--text-muted);
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chevron {
+  color: var(--text-muted);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+.chevronOpen { transform: rotate(180deg); }
+
+/* ── Variant grid ────────────────────────────────────────────────────────── */
+.variantGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: 8px;
+  padding: 12px 20px 16px;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  animation: slideDown 0.18s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.noVariants {
+  font-size: 12px;
+  color: var(--text-muted);
+  grid-column: 1 / -1;
+  padding: 4px 0;
+}
+
+/* ── Variant tile ────────────────────────────────────────────────────────── */
+.variantTile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  border: 2px solid transparent;
+  background: var(--surface);
+  transition: all 0.12s ease;
+  cursor: pointer;
+}
+.variantTile:hover {
+  border-color: var(--border);
+  transform: scale(1.04);
+  box-shadow: var(--shadow-sm);
+}
+.variantSelected {
+  border-color: var(--accent);
+  background: var(--accent-pale);
+  transform: scale(1.04);
+}
+
+.variantLabel {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 64px;
+}
+.variantSelected .variantLabel { color: var(--accent); font-weight: 600; }
+
+/* ── Thumbnail ───────────────────────────────────────────────────────────── */
+.thumbWrap {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.thumbImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.15s ease;
+}
+
+.thumbSkeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--border) 25%, #f0efeb 50%, var(--border) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+  border-radius: 6px;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.thumbPlaceholder {
+  width: 56px;
+  height: 56px;
+  border-radius: 6px;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--border);
+}
+
+.thumbLabel {
+  font-size: 8px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 2px;
+  line-height: 1.2;
+}

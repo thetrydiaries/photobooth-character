@@ -1,0 +1,144 @@
+{
+  "version": 1,
+  "_comment": "Rules evaluate top-to-bottom per category; first full match wins. If no rule matches and the rules array is non-empty, 'default' is used and the layer is added to the flags list (yellow in AssetPanel). Empty rules = intentional default, never flagged.",
+  "categories": {
+    "hair_back": {
+      "_comment": "Stand-ins used where asset not yet drawn: wavy/curly long → hair_back_straight_long, medium → hair_back_straight_long, curly short → hair_back_short.",
+      "default": "hair_back_short",
+      "rules": [
+        { "conditions": { "hairStyle": "bun" },                                   "asset": "hair_back_buns" },
+        { "conditions": { "hairStyle": "bob" },                                   "asset": "hair_back_bob" },
+        { "conditions": { "hairLength": "long",   "hairStyle": "curly" },         "asset": "hair_back_straight_long" },
+        { "conditions": { "hairLength": "long",   "hairStyle": "wavy" },          "asset": "hair_back_straight_long" },
+        { "conditions": { "hairLength": "long" },                                 "asset": "hair_back_straight_long" },
+        { "conditions": { "hairLength": "medium" },                               "asset": "hair_back_straight_long" },
+        { "conditions": { "hairLength": "short",  "hairStyle": "curly" },         "asset": "hair_back_short" },
+        { "conditions": { "hairLength": "short" },                                "asset": "hair_back_short" }
+      ]
+    },
+    "hair_front": {
+      "default": "hair_front_none",
+      "rules": [
+        { "conditions": { "hairFrontStyle": "slick" },    "asset": "hair_front_slickback" },
+        { "conditions": { "hairFrontStyle": "messy" },    "asset": "hair_front_messy" },
+        { "conditions": { "hairFrontStyle": "curtains" }, "asset": "hair_front_curtainbangs" },
+        { "conditions": { "hairFrontStyle": "fringe" },   "asset": "hair_front_fringe" },
+        { "conditions": { "hairFrontStyle": "side_part" },"asset": "hair_front_sidepart" },
+        { "conditions": { "hairFrontStyle": "long" },     "asset": "hair_front_long" },
+        { "conditions": { "hairFrontStyle": "none" },     "asset": "hair_front_none" }
+      ]
+    },
+    "face": {
+      "default": "face_oval",
+      "rules": [
+        { "conditions": { "faceShape": "oval" },    "asset": "face_oval" },
+        { "conditions": { "faceShape": "round" },   "asset": "face_round" },
+        { "conditions": { "faceShape": "square" },  "asset": "face_square" },
+        { "conditions": { "faceShape": "heart" },   "asset": "face_heart" },
+        { "conditions": { "faceShape": "oblong" },  "asset": "face_oblong" },
+        { "conditions": { "faceShape": "diamond" }, "asset": "face_diamond" }
+      ]
+    },
+    "body": {
+      "_comment": "Body type not detectable from a photo — intentional default, never flagged.",
+      "default": "body_base",
+      "rules": []
+    },
+    "outfit": {
+      "default": "outfit_shirt",
+      "rules": [
+        { "conditions": { "outfitStyle": "buttonup" },    "asset": "outfit_buttonup" },
+        { "conditions": { "outfitStyle": "turtleneck" },  "asset": "outfit_turtleneck" },
+        { "conditions": { "outfitStyle": "shirtpocket" }, "asset": "outfit_shirtpocket" },
+        { "conditions": { "outfitStyle": "shirt" },       "asset": "outfit_shirt" }
+      ]
+    },
+    "facialhair": {
+      "default": "facialhair_none",
+      "rules": [
+        { "conditions": { "facialHairStyle": "none" },        "asset": "facialhair_none" },
+        { "conditions": { "facialHairStyle": "stubble" },     "asset": "facialhair_stubble" },
+        { "conditions": { "facialHairStyle": "moustache" },   "asset": "facialhair_stubble" },
+        { "conditions": { "facialHairStyle": "short beard" }, "asset": "facialhair_stubble" },
+        { "conditions": { "facialHairStyle": "full beard" },  "asset": "facialhair_stubble" },
+        { "conditions": { "facialHairStyle": "goatee" },      "asset": "facialhair_stubble" }
+      ]
+    },
+    "nose": {
+      "default": "nose_button",
+      "rules": [
+        { "conditions": { "noseShape": "button" },   "asset": "nose_button" },
+        { "conditions": { "noseShape": "straight" }, "asset": "nose_straight" },
+        { "conditions": { "noseShape": "upturned" }, "asset": "nose_upturn" },
+        { "conditions": { "noseShape": "wide" },     "asset": "nose_button" },
+        { "conditions": { "noseShape": "curved" },   "asset": "nose_straight" }
+      ]
+    },
+    "mouth": {
+      "default": "mouth_neutral",
+      "rules": [
+        { "conditions": { "mouthShape": "neutral" }, "asset": "mouth_neutral" },
+        { "conditions": { "mouthShape": "full" },    "asset": "mouth_closedsmile" },
+        { "conditions": { "mouthShape": "wide" },    "asset": "mouth_grin" },
+        { "conditions": { "mouthShape": "thin" },    "asset": "mouth_neutral" }
+      ]
+    },
+    "eyes": {
+      "default": "eyes_almond_brown",
+      "rules": [
+        { "conditions": { "eyeShape": "almond",  "eyeColour": "black" },  "asset": "eyes_almond_black" },
+        { "conditions": { "eyeShape": "almond",  "eyeColour": "brown" },  "asset": "eyes_almond_brown" },
+        { "conditions": { "eyeShape": "almond",  "eyeColour": "blue" },   "asset": "eyes_almond_blue" },
+        { "conditions": { "eyeShape": "almond",  "eyeColour": "green" },  "asset": "eyes_almond_brown" },
+        { "conditions": { "eyeShape": "almond",  "eyeColour": "hazel" },  "asset": "eyes_almond_brown" },
+        { "conditions": { "eyeShape": "round",   "eyeColour": "black" },  "asset": "eyes_round_black" },
+        { "conditions": { "eyeShape": "round",   "eyeColour": "brown" },  "asset": "eyes_round_brown" },
+        { "conditions": { "eyeShape": "round",   "eyeColour": "blue" },   "asset": "eyes_round_blue" },
+        { "conditions": { "eyeShape": "round",   "eyeColour": "green" },  "asset": "eyes_round_brown" },
+        { "conditions": { "eyeShape": "round",   "eyeColour": "hazel" },  "asset": "eyes_round_brown" },
+        { "conditions": { "eyeShape": "monolid", "eyeColour": "black" },  "asset": "eyes_monolid_black" },
+        { "conditions": { "eyeShape": "monolid", "eyeColour": "brown" },  "asset": "eyes_monolid_brown" },
+        { "conditions": { "eyeShape": "monolid", "eyeColour": "blue" },   "asset": "eyes_monolid_blue" },
+        { "conditions": { "eyeShape": "monolid", "eyeColour": "green" },  "asset": "eyes_monolid_brown" },
+        { "conditions": { "eyeShape": "monolid", "eyeColour": "hazel" },  "asset": "eyes_monolid_brown" },
+        { "conditions": { "eyeShape": "hooded",  "eyeColour": "black" },  "asset": "eyes_hooded_black" },
+        { "conditions": { "eyeShape": "hooded",  "eyeColour": "brown" },  "asset": "eyes_hooded_brown" },
+        { "conditions": { "eyeShape": "hooded",  "eyeColour": "blue" },   "asset": "eyes_hooded_blue" },
+        { "conditions": { "eyeShape": "hooded",  "eyeColour": "green" },  "asset": "eyes_hooded_brown" },
+        { "conditions": { "eyeShape": "hooded",  "eyeColour": "hazel" },  "asset": "eyes_hooded_brown" },
+        { "conditions": { "eyeColour": "black" }, "asset": "eyes_almond_black" },
+        { "conditions": { "eyeColour": "brown" }, "asset": "eyes_almond_brown" },
+        { "conditions": { "eyeColour": "blue" },  "asset": "eyes_almond_blue" }
+      ]
+    },
+    "brows": {
+      "default": "brow_natural",
+      "rules": [
+        { "conditions": { "browShape": "natural" },      "asset": "brow_natural" },
+        { "conditions": { "browShape": "arched" },       "asset": "brow_arched" },
+        { "conditions": { "browShape": "straight" },     "asset": "brows_thick" },
+        { "conditions": { "browShape": "bushy" },        "asset": "brows_thick" },
+        { "conditions": { "browShape": "barely-there" }, "asset": "brows_thin" }
+      ]
+    },
+    "twinkle": {
+      "_comment": "Always circle by default — intentional, never flagged.",
+      "default": "twinkle_circle",
+      "rules": []
+    },
+    "accessory": {
+      "default": [],
+      "rules": [
+        { "conditions": { "gender": "female", "hasGlasses": true },  "asset": ["accessories_glasses", "accessories_blush", "accessories_eyelashes"] },
+        { "conditions": { "gender": "female", "hasGlasses": false }, "asset": ["accessories_blush", "accessories_eyelashes"] },
+        { "conditions": { "gender": "female" },                      "asset": ["accessories_blush", "accessories_eyelashes"] },
+        { "conditions": { "hasGlasses": true },                      "asset": ["accessories_glasses"] }
+      ]
+    },
+    "frame": {
+      "_comment": "Frame is set once per wedding, not per guest — intentional default, never flagged.",
+      "default": "frame_botanical",
+      "rules": []
+    }
+  }
+}
