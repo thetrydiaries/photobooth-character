@@ -1,8 +1,7 @@
 {
   "buildCommand": "cd client && npm install && npm run build",
   "outputDirectory": "client/dist",
-  "nodeVersion": "22.x",
-  "rewrites": [
+"rewrites": [
     { "source": "/analyse", "destination": "/api/server" },
     { "source": "/variants", "destination": "/api/server" },
     { "source": "/(.*)", "destination": "/index.html" }
