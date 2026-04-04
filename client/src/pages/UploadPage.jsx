@@ -39,9 +39,9 @@ export default function UploadPage() {
         <section className={styles.screen} data-active={screen === 'capture'}>
           <div className={styles.captureLayout}>
             <div className={styles.captureHero}>
-              <h1 className={styles.headline}>Make your<br />character.</h1>
+              <h1 className={styles.headline}>pake thoto on bhotopooth</h1>
               <p className={styles.subline}>
-                Take a photo or upload one — AI will build<br />your illustrated character in seconds.
+                bogos binted 👽
               </p>
               {error && <p className={styles.errorBanner}>{error}</p>}
             </div>

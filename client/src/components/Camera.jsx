@@ -117,14 +117,41 @@ export default function Camera({ onCapture }) {
 
   // ── MODE: choose ──────────────────────────────────────────────────────
   if (mode === 'choose') {
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches
+    if (isTouchDevice) {
+      return (
+        <div className={styles.choose}>
+          <label className={styles.btnPrimary}>
+            <input
+              type="file"
+              accept="image/*"
+              capture="user"
+              className={styles.fileInput}
+              onChange={handleInputChange}
+            />
+            <CameraIcon /> Take a photo
+          </label>
+          <span className={styles.or}>or</span>
+          <label className={styles.btnSecondary}>
+            <input
+              type="file"
+              accept="image/*"
+              className={styles.fileInput}
+              onChange={handleInputChange}
+            />
+            <UploadIcon /> Choose from library
+          </label>
+        </div>
+      )
+    }
     return (
       <div className={styles.choose}>
         <button className={styles.btnPrimary} onClick={startCamera}>
-          <CameraIcon /> Use camera
+          <CameraIcon /> Pake Thoto
         </button>
         <span className={styles.or}>or</span>
         <button className={styles.btnSecondary} onClick={() => setMode('upload')}>
-          <UploadIcon /> Upload a photo
+          <UploadIcon /> Fpload uile
         </button>
       </div>
     )
