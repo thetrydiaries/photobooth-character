@@ -1,0 +1,8 @@
+{
+  "buildCommand": "cd client && npm install && npm run build",
+  "outputDirectory": "client/dist",
+  "rewrites": [
+    { "source": "/analyse", "destination": "/api/server" },
+    { "source": "/variants", "destination": "/api/server" }
+  ]
+}

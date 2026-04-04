@@ -7,29 +7,9 @@ const path    = require('path')
 const app  = express()
 const PORT = process.env.PORT || 3001
 
-const ASSETS_DIR = path.join(__dirname, '..', 'assets')
-
 // ── Middleware ──────────────────────────────────────────────────────────────
-app.use(cors({ origin: 'http://localhost:5173' }))
+app.use(cors())
 app.use(express.json())
-
-// ── Asset serving — search subdirectories for the requested filename ────────
-app.get('/assets/:filename', (req, res) => {
-  const filename = req.params.filename
-  if (filename.includes('/') || filename.includes('..')) {
-    return res.status(400).send('Invalid filename')
-  }
-  const subdirs = fs.readdirSync(ASSETS_DIR, { withFileTypes: true })
-    .filter(d => d.isDirectory())
-    .map(d => d.name)
-  for (const subdir of subdirs) {
-    const filepath = path.join(ASSETS_DIR, subdir, filename)
-    if (fs.existsSync(filepath)) {
-      return res.sendFile(filepath)
-    }
-  }
-  res.status(404).send('Asset not found')
-})
 
 // ── Routes ──────────────────────────────────────────────────────────────────
 app.use('/analyse', require('./routes/analyse'))
@@ -60,8 +40,12 @@ app.get('/variants', (_req, res) => {
   res.json(variants)
 })
 
-// ── Start ────────────────────────────────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`[server] http://localhost:${PORT}`)
-  console.log(`[server] ANTHROPIC_API_KEY: ${process.env.ANTHROPIC_API_KEY ? 'set' : 'NOT SET'}`)
-})
+// ── Start (local dev only) ───────────────────────────────────────────────────
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`[server] http://localhost:${PORT}`)
+    console.log(`[server] ANTHROPIC_API_KEY: ${process.env.ANTHROPIC_API_KEY ? 'set' : 'NOT SET'}`)
+  })
+}
+
+module.exports = app
