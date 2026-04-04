@@ -31,7 +31,7 @@ export default function UploadPage() {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <span className={styles.logo}>Photobooth</span>
+        <span className={styles.logo}>bhotopooth</span>
       </header>
 
       <main className={styles.main}>

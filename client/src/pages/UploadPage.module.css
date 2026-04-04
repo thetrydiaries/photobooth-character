@@ -17,7 +17,7 @@
 }
 
 .logo {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive;
   font-size: 22px;
   font-weight: 700;
   color: var(--text);
@@ -154,4 +154,28 @@
   font-weight: 500;
   color: var(--text-muted);
   letter-spacing: 0.2px;
+}
+
+/* ── Mobile (≤640px) ── */
+@media (max-width: 640px) {
+  .header {
+    padding: 14px 20px;
+  }
+
+  .screen {
+    padding: 36px 20px;
+  }
+
+  .captureLayout {
+    gap: 32px;
+  }
+
+  .headline {
+    font-size: 36px;
+    letter-spacing: -0.5px;
+  }
+
+  .subline {
+    font-size: 16px;
+  }
 }

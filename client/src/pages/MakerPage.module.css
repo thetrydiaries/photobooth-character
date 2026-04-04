@@ -18,7 +18,7 @@
 }
 
 .logo {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive;
   font-size: 22px;
   font-weight: 700;
   color: var(--text);
@@ -186,4 +186,87 @@
   width: 1px;
   background: #3A3A6E;
   flex-shrink: 0;
+}
+
+/* ── Stage scale wrapper (desktop: transparent pass-through) ── */
+.stageWrap {
+  /* no styles needed on desktop — cardShadow sizes itself */
+}
+
+/* ── Tablet layout (641–1100px): column, canvas at 70% ── */
+@media (max-width: 1100px) {
+  .main {
+    overflow: auto;
+  }
+
+  .compositorLayout {
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 24px;
+    gap: 32px;
+    flex: none;
+  }
+
+  .canvasCol {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .photoPane {
+    display: none;
+  }
+
+  .panelArea {
+    width: 100%;
+    max-width: 700px;
+    padding-top: 0;
+  }
+
+  /* Clip container sized to scaled canvas */
+  .stageWrap {
+    width: 441px;   /* 630 × 0.7 */
+    height: 616px;  /* 880 × 0.7 */
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .cardShadow {
+    transform: scale(0.7);
+    transform-origin: top left;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+/* ── Mobile layout (≤640px): column, canvas at 52% ── */
+@media (max-width: 640px) {
+  .header {
+    padding: 14px 20px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .compositorLayout {
+    padding: 20px 16px;
+    gap: 20px;
+  }
+
+  .stageWrap {
+    width: 328px;   /* 630 × 0.52 */
+    height: 458px;  /* 880 × 0.52 */
+  }
+
+  .cardShadow {
+    transform: scale(0.52);
+  }
+
+  .debugToggle {
+    bottom: 16px;
+    right: 16px;
+  }
 }

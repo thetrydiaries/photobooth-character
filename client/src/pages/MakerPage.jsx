@@ -32,7 +32,7 @@ export default function MakerPage() {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <span className={styles.logo}>Photobooth</span>
+        <span className={styles.logo}>bhotopooth</span>
         <button className={styles.restart} onClick={() => navigate('/upload')}>
           ← New photo
         </button>
@@ -52,8 +52,10 @@ export default function MakerPage() {
 
             {/* Character canvas */}
             <div className={styles.canvasArea}>
-              <div className={styles.cardShadow}>
-                <Compositor recipe={recipe} stageRef={stageRef} />
+              <div className={styles.stageWrap}>
+                <div className={styles.cardShadow}>
+                  <Compositor recipe={recipe} stageRef={stageRef} />
+                </div>
               </div>
               <ExportButton stageRef={stageRef} />
             </div>

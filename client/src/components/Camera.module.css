@@ -237,6 +237,32 @@
   margin-top: -4px;
 }
 
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  .choose {
+    gap: 12px;
+  }
+
+  .btnPrimary,
+  .btnSecondary {
+    font-size: 14px;
+    padding: 12px 22px;
+  }
+
+  .cameraControls {
+    gap: 20px;
+  }
+
+  .countdown {
+    font-size: 80px;
+  }
+
+  .dropzone {
+    padding: 28px 20px;
+    min-height: 160px;
+  }
+}
+
 /* ── Preview ────────────────────────────────────────────────────────────── */
 .previewWrap {
   display: flex;
