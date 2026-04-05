@@ -25,7 +25,19 @@ export default function MakerPage() {
   useEffect(() => {
     fetch('/variants')
       .then(r => r.json())
-      .then(setVariants)
+      .then(data => {
+        setVariants(data)
+        // Auto-select the first body variant if none is set
+        if (data.body?.length > 0) {
+          setRecipe(prev => ({
+            ...prev,
+            assets: {
+              ...prev.assets,
+              body: prev.assets.body ?? data.body[0],
+            },
+          }))
+        }
+      })
       .catch(() => {})
   }, [])
 

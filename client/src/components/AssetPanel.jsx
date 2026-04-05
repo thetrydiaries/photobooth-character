@@ -29,9 +29,12 @@ const CATEGORY_LABELS = {
 const PANEL_ORDER = [
   'face', 'eyes', 'brows', 'nose', 'mouth',
   'hair_back', 'hair_front', 'facialhair',
-  'body', 'outfit', 'accessory',
+  'outfit', 'accessory',
   'frame', 'twinkle',
 ]
+
+// ── Categories that support multiple simultaneous selections ──────────────
+const MULTISELECT_CATEGORIES = ['accessory']
 
 // ── Shorten an asset name to a readable label ─────────────────────────────
 function shortLabel(name) {
@@ -55,12 +58,23 @@ export default function AssetPanel({ recipe, flags, variants, onRecipeChange }) 
   }
 
   function swapAsset(category, newAsset) {
-    const next = {
-      ...recipe,
-      assets: { ...recipe.assets, [category]: newAsset },
+    let value
+    if (MULTISELECT_CATEGORIES.includes(category)) {
+      const current = recipe.assets[category]
+      const currentArr = Array.isArray(current) ? current : (current ? [current] : [])
+      if (currentArr.includes(newAsset)) {
+        // deselect
+        value = currentArr.filter(a => a !== newAsset)
+      } else {
+        value = [...currentArr, newAsset]
+      }
+    } else {
+      value = newAsset
     }
-    onRecipeChange(next)
-    // keep the category open — user closes by clicking another category or the same header
+    onRecipeChange({
+      ...recipe,
+      assets: { ...recipe.assets, [category]: value },
+    })
   }
 
   const categories = PANEL_ORDER.filter(c => recipe.assets[c] !== undefined || (variants[c] && variants[c].length > 0))
@@ -68,7 +82,7 @@ export default function AssetPanel({ recipe, flags, variants, onRecipeChange }) 
   return (
     <div className={styles.panel}>
       <h2 className={styles.panelTitle}>Customise</h2>
-      <p className={styles.panelSub}>Click any row to swap the asset.</p>
+      <p className={styles.panelSub}>Click any row to swap the asset. Accessories can be stacked.</p>
 
       <div className={styles.categoryList}>
         {categories.map(category => {

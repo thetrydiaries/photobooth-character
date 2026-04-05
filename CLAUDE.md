@@ -107,8 +107,12 @@ Assets are hand-drawn PNG files. Canvas size: exactly 630 × 880px with transpar
 | 7 | eyes | Includes eyebrows |
 | 8 | hair_length | Back/length layer |
 | 9 | hair_front | Front/fringe layer |
-| 10 | accessory | Glasses, blush, eyelashes |
+| 10 | accessory | Glasses, blush, eyelashes — **multiselect**, stored as an array |
 | 11 | twinkle | Always circle — decorative |
+
+**Multiselect:** `accessory` supports stacking — `recipe.assets.accessory` is an array of selected asset names. Clicking a tile toggles it in/out. All other categories are single-select strings.
+
+**Body auto-select:** `body` has only one variant and is auto-selected when variants load (`MakerPage.jsx`). It is intentionally hidden from the asset panel — there's nothing to swap.
 
 **Tinting:** Hair and skin tinted at render time using multiply blending. Assets drawn in black (hair) or mid-grey (skin/outfit). Compositor applies colour on top.
 
