@@ -46,6 +46,13 @@ export default function UploadPage() {
               {error && <p className={styles.errorBanner}>{error}</p>}
             </div>
             <Camera onCapture={handleCapture} />
+
+            <button
+              className={styles.skipBtn}
+              onClick={() => navigate('/maker')}
+            >
+              Skip to character maker →
+            </button>
           </div>
         </section>
 
