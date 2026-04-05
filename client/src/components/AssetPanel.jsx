@@ -63,7 +63,7 @@ export default function AssetPanel({ recipe, flags, variants, onRecipeChange }) 
     // keep the category open — user closes by clicking another category or the same header
   }
 
-  const categories = PANEL_ORDER.filter(c => recipe.assets[c] !== undefined)
+  const categories = PANEL_ORDER.filter(c => recipe.assets[c] !== undefined || (variants[c] && variants[c].length > 0))
 
   return (
     <div className={styles.panel}>
